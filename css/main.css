@@ -1,9 +1,50 @@
+body {
+  font-family: sans-serif;
+}
+
 #board {
   display:flex;
 }
 
 .tile {
   border: 1px solid red;
-  height: 30px;
+  height: 40px;
   width: 30px;
+}
+
+#category {
+  border: 1px solid red;
+  height: 30px;
+  width: 600px;
+}
+
+#instructions {
+  border: 1px solid red;
+  height: 80px;
+  width: 600px;
+}
+
+#players {
+  display: flex;
+}
+
+#p1-name, #p2-name {
+  border: 1px solid red;
+  width: 200px;
+}
+
+#p1-score, #p2-score {
+  border: 1px solid red;
+  height: 40px;
+  width: 200px;
+}
+
+#wheel {
+  height: 200px;
+  width: 200px;
+  border: 1px solid red;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
