@@ -12,6 +12,7 @@ body {
   border: 1px solid red;
   height: 70px;
   width: 60px;
+  text-align: center;
 }
 
 #category {
