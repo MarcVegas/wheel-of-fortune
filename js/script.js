@@ -2,54 +2,10 @@ console.log("script loaded")
 
 var tiles = [$(".tile.r1"),$(".tile.r2"),$(".tile.r3")]
 var tilesPerRow = tiles[0].length
-
-var clue = "hello my name is bob"
-var clueArr
-var clueTablePos = []
-var returnPressed = false
-var guessedLetters = ""
-var score = [0,0]
-var scoreEls = $("#p1-score, #p2-score")
-var currPlayer = 0
-
-
-$(document).keydown(function (e) {
-  if(e.which === 13 && returnPressed === false) {
-    placeClue()
-    console.log('return key pressed')
-    returnPressed = true
-  }
-})
-
-$(document).keyup(function (e) {
-  if(e.which === 13 && returnPressed === true) {
-    returnPressed = false
-  }
-})
-
-
-function placeClue() {
-  clueArr = clue.split(" ")
-  var currRow = 0
-  var currCol = 0
-
-  for(var i=0; i<clueArr.length; i++) {  //for each element (aka word) in clue
-    currWord = clueArr[i]
-    if(currCol + currWord.length < tilesPerRow) { //if element fits
-      if(currCol !== 0) { //if not on first column add a space
-        currCol += 1
-      }
-    } else {
-      currRow += 1 //go to next row
-      currCol = 0 //go to first tile of that row
-    }
-    for(var j=0; j< currWord.length; j++) {
-      $(tiles[currRow][currCol]).addClass('blank-tile').html(currWord[j])
-      clueTablePos.push([currRow, currCol])
-      currCol++
-    }
-  }
-}
+var spinButton = $("#spin")
+var buyVowelButton = $("#buy-vowel")
+var solveButton = $("#solve")
+var guessBox = $("#guess-box")
 
 var wheel = [ 50000,
               5000,
@@ -77,10 +33,69 @@ var wheel = [ 50000,
               5000,
               3000]
 
+var clue = "hello my name is bob"
+var clueArr
+var clueTablePos = []
+var returnPressed = false
+var guessedLetters = ""
+var score = [0,0]
+var scoreEls = $("#p1-score, #p2-score")
+var currPlayer = 0
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$(document).keydown(function (e) {
+  if(e.which === 13 && returnPressed === false) {
+    guess(guessBox.val())
+    guessBox.val("")
+    returnPressed = true
+  }
+})
+
+$(document).keyup(function (e) {
+  if(e.which === 13 && returnPressed === true) {
+    returnPressed = false
+  }
+})
+
+
+spinButton.click(spinWheel)
+buyVowelButton.click(buyVowel)
+solveButton.click(solve)
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+function placeClue() {
+  clueArr = clue.split(" ")
+  var currRow = 0
+  var currCol = 0
+
+  for(var i=0; i<clueArr.length; i++) {  //for each element (aka word) in clue
+    currWord = clueArr[i]
+    if(currCol + currWord.length < tilesPerRow) { //if element fits
+      if(currCol !== 0) { //if not on first column add a space
+        currCol += 1
+      }
+    } else {
+      currRow += 1 //go to next row
+      currCol = 0 //go to first tile of that row
+    }
+    for(var j=0; j< currWord.length; j++) {
+      $(tiles[currRow][currCol]).addClass('blank-tile').html(currWord[j])
+      clueTablePos.push([currRow, currCol])
+      currCol++
+    }
+  }
+}
+
 function spinWheel() {
   var max = wheel.length
   var min = 0
-  return wheel[Math.floor(Math.random() * (max - min)) + min]
+  var points = wheel[Math.floor(Math.random() * (max - min)) + min]
+  console.log("points =", points)
+  return points
 }
 
 function guess(letter) {
@@ -118,10 +133,15 @@ function guess(letter) {
 function buyVowel () {
   //1. guess
   //2. update score
+  console.log('buy a vowel!')
 }
 
 function updateScore (points, numGuessed) {
   score[currPlayer] = score[currPlayer] + points*numGuessed
   $(scoreEls[currPlayer]).html(score[currPlayer])
+}
+
+function solve() {
+  console.log('solve')
 }
 

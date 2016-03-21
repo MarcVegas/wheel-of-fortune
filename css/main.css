@@ -30,7 +30,7 @@ body {
   margin-top: 10px;
 }
 
-#instructions {
+#instruction-div {
   border: 1px solid red;
   height: 80px;
   width: 600px;
