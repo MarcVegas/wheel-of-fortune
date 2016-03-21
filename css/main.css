@@ -19,6 +19,10 @@ body {
   background-color: grey;
 }
 
+.highlight {
+  background-color: red;
+}
+
 #category {
   border: 1px solid red;
   height: 30px;
