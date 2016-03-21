@@ -7,6 +7,11 @@ var clue = "hello my name is bob"
 var clueArr
 var clueTablePos = []
 var returnPressed = false
+var guessedLetters = ""
+var score = [0,0]
+var scoreEls = $("#p1-score, #p2-score")
+var currPlayer = 0
+
 
 $(document).keydown(function (e) {
   if(e.which === 13 && returnPressed === false) {
@@ -72,7 +77,6 @@ var wheel = [ 50000,
               5000,
               3000]
 
-
 function spinWheel() {
   var max = wheel.length
   var min = 0
@@ -84,34 +88,40 @@ function guess(letter) {
   //get rid of spaces in clue for this function (b/c cluesTableMap doesn't map out the spaces)
   var pos = bleh.indexOf(letter)
   var posArr = []
+  var count = 0
 
   //look for the letters in the clue
   if(bleh.indexOf(letter) === -1) {
-    return "wrong!"
+    return "wrong!" //if you're wrong, then the function ends
+  } else if(guessedLetters.indexOf(letter) !== -1) {
+    return "already guessed that letter"
   } else {
     //if it exists, return all the indicies of the letter in the clue and their respective position on the table
     while (pos !== -1) {
       posArr.push(pos)
       pos = bleh.indexOf(letter, pos+1)
+      count++
     }
-    console.log(posArr)
   }
-  //return WRONG! or highlight the tiles with the letter
 
+  //highlight the tiles with the letter
   for (var i=0;i<posArr.length; i++) {
     tileRow = clueTablePos[posArr[i]][0]
     tileCol = clueTablePos[posArr[i]][1]
     $(tiles[tileRow][tileCol]).addClass("highlight")
   }
 
+  guessedLetters += letter // add the letter to the guessed letter
+  return count
 }
 
-placeClue()
-guess("b")
-
-function highlightTiles (posArr) {
-  for (var i=0; i< posArr.length; i++) {
-
-  }
-
+function buyVowel () {
+  //1. guess
+  //2. update score
 }
+
+function updateScore (points, numGuessed) {
+  score[currPlayer] = score[currPlayer] + points*numGuessed
+  $(scoreEls[currPlayer]).html(score[currPlayer])
+}
+
