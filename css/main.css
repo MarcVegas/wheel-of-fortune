@@ -21,7 +21,9 @@ body {
 
 .highlight {
   background-color: red;
+  color: red;
 }
+
 
 #category {
   border: 1px solid red;
