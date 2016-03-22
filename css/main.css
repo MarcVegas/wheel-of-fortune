@@ -32,11 +32,11 @@ body {
   margin-top: 10px;
 }
 
-#instruction-div {
+#instructions {
   border: 1px solid red;
   height: 80px;
   width: 600px;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 #players {
@@ -55,6 +55,7 @@ body {
 }
 
 #wheel {
+  display:none;
   height: 200px;
   width: 200px;
   border: 1px solid red;
@@ -62,4 +63,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#spin, #solve, #buy-vowel, #guess-input {
+  display: none;
 }
