@@ -4,8 +4,8 @@ var currPlayer = 0
 var round = 1
 
 var clue, category
-[clue, category] = clueBank.getRandClue()
-console.log(clue, ",",category)
+[category, clue] = clueBank.getRandClue()
+console.log(category, ",",clue)
 var clueTablePos = []
 var guessedLetters = ""
 var buyAVowel = false
