@@ -2,12 +2,15 @@ var roundScore = [0,0]
 var currPlayer = 0
 
 var clue = "hello my name is bob"
+var category = "phrase"
 var clueTablePos = []
 var guessedLetters = ""
+var buyAVowel = false
 
 
 var $tiles = [$(".tile.r1"),$(".tile.r2"),$(".tile.r3")]
 var tilesPerRow = $tiles[0].length
+var $category = $("#category")
 
 var $instructionBox = $("#instructions")
 
@@ -83,6 +86,8 @@ function placeTiles() {
   var currRow = 0
   var currCol = 0
 
+  $category.html(category)
+
   for(var i=0; i<clueArr.length; i++) {  //for each element (aka word) in clue
     var currWord = clueArr[i]
     if(currCol + currWord.length < tilesPerRow) { //if element fits
@@ -119,7 +124,7 @@ function disableChoices() {
 }
 
 function spin () {
-  var returnDown = false
+  buyAVowel = false
   disableChoices()
 
   var spinValue = $wheel.getValue()
@@ -135,6 +140,7 @@ function spin () {
     showMessage(spinValue +  " Player " + (currPlayer+1) + ".", true)
     nextPlayer()
   } else {
+    var returnDown = false
     $guessInput.show().keydown(function (event){
       if(event.which === 13 && returnDown === false) {
         returnDown = true
@@ -150,14 +156,36 @@ function spin () {
   }
 }
 
-
 function buyVowel () {
-  console.log("buy a vowel!")
+  //check if you can even buy a vowel
+  console.log("blah", roundScore[currPlayer])
+  if(roundScore[currPlayer] < 250) {
+    showMessage("You need at least 250 for a vowel.", true)
+    $guessInput.hide().off()
+  } else {
+    spinValue = -250
+    disableChoices()
+    showMessage("Alright, vowels are 250 each.", false)
+    var returnDown = false
+      $guessInput.show().keydown(function (event){
+        if(event.which === 13 && returnDown === false) {
+          returnDown = true
+          guessVowel($(this).val(), spinValue)
+          $(this).val("")
+        }
+      }).keyup(function(event) {
+        if(event.which === 13 && returnDown === true){
+          returnDown = false
+        }
+      })
+  }
 }
 
 function solve () {
   console.log("solve!")
 }
+
+
 
 function guess (letter, spinValue) {
   var result = checkGuess(letter)
@@ -175,32 +203,77 @@ function guess (letter, spinValue) {
     showMessage("No '" + letter + "'. Player " + (currPlayer+ 1) + ", you're up", true)
     $guessInput.hide().off()
   } else if (result === "correct") {
-    guessedLetters += letter
-    var clueNoSpaces = clue.replace(/\s/ig, "")
-    var pos = clueNoSpaces.indexOf(letter)
-    var posArr = []
-    var count = 0
+      guessedLetters += letter
 
-    while (pos !== -1) {
-        posArr.push(pos)
-        pos = clueNoSpaces.indexOf(letter, pos+1)
-        count++
+      //figure out letter count in clue and position of each letter on tile
+      var clueNoSpaces = clue.replace(/\s/ig, "")
+      var pos = clueNoSpaces.indexOf(letter)
+      var posArr = []
+      var count = 0
+
+      while (pos !== -1) {
+          posArr.push(pos)
+          pos = clueNoSpaces.indexOf(letter, pos+1)
+          count++
+      }
+
+      //highlight the tiles with the guessed letter
+      for (var i=0;i<posArr.length; i++) {
+        tileRow = clueTablePos[posArr[i]][0]
+        tileCol = clueTablePos[posArr[i]][1]
+        $($tiles[tileRow][tileCol]).addClass("highlight").html(clueNoSpaces[posArr[i]]).click(function(e) { //give tiles ability to flip
+            $(e.currentTarget).removeClass('highlight').off()
+          })
+      }
+
+      updateScore(spinValue, count)
+
+      $guessInput.hide().off()
+      showMessage("Alright! Go ahead and flip them!", true)
+  }
+}
+
+function guessVowel (letter, spinValue) {
+  //check the letter
+  var result = checkGuess(letter)
+  var clueNoSpaces = clue.replace(/\s/ig, "")
+  console.log(result)
+  if(result !== "vowel") {
+    showMessage("That's not a vowel.", false)
+  } else {
+    if (result === "already-guessed"){
+      showMessage("Whoops, '" + letter + "' was already guessed. Sorry you lost your turn.", true)
+      nextPlayer()
+      $guessInput.hide().off()
+    } else if (clueNoSpaces.indexOf(letter) === -1) { // result won't spit out wrong if it's a vowel
+      guessedLetters += letter
+      nextPlayer()
+      showMessage("No '" + letter + "'. Player " + (currPlayer+ 1) + ", you're up", true)
+      $guessInput.hide().off()
+    } else {
+        var pos = clueNoSpaces.indexOf(letter)
+        var posArr = []
+        var count = 0
+
+        while (pos !== -1) {
+            posArr.push(pos)
+            pos = clueNoSpaces.indexOf(letter, pos+1)
+            count++
+        }
+
+        //highlight the tiles with the guessed letter
+        for (var i=0;i<posArr.length; i++) {
+          tileRow = clueTablePos[posArr[i]][0]
+          tileCol = clueTablePos[posArr[i]][1]
+          $($tiles[tileRow][tileCol]).addClass("highlight").html(clueNoSpaces[posArr[i]]).click(function(e) { //give tiles ability to flip
+              $(e.currentTarget).removeClass('highlight').off()
+            })
+        }
+
+        updateScore(spinValue, count)
+        $guessInput.hide().off()
+        showMessage("Flip over those vowels!", true)
     }
-
-    //highlight the tiles with the letter
-    for (var i=0;i<posArr.length; i++) {
-      tileRow = clueTablePos[posArr[i]][0]
-      tileCol = clueTablePos[posArr[i]][1]
-      $($tiles[tileRow][tileCol]).addClass("highlight").html(clueNoSpaces[posArr[i]]).click(function(e) { //give tiles ability to flip
-          $(e.currentTarget).removeClass('highlight')
-          $(e.currentTarget).off()
-        })
-    }
-
-    updateScore(spinValue, count)
-
-    $guessInput.hide().off()
-    showMessage("Alright! Go ahead and flip them!", true)
   }
 }
 
@@ -231,7 +304,6 @@ function nextPlayer() {
   }
 }
 
-
 function updateScore (points, numGuessed, bankrupt) {
   if(bankrupt) {
     roundScore[currPlayer] =0
@@ -239,5 +311,4 @@ function updateScore (points, numGuessed, bankrupt) {
     roundScore[currPlayer] += points*numGuessed
   }
   pScore.el[currPlayer].html(roundScore[currPlayer])
-
 }
