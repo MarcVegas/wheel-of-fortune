@@ -13,15 +13,19 @@ body {
   height: 70px;
   width: 60px;
   text-align: center;
+  transition: transform 1s;
+  transform:rotateY(0deg);
 }
 
 .blank-tile {
   background-color: grey;
+  transform:rotateY(360deg);
 }
 
 .highlight {
   background-color: red;
   color: red;
+  transform:rotateY(180deg);
 }
 
 

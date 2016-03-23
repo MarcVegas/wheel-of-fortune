@@ -102,6 +102,7 @@ function placeTiles() {
   var clueArr = clue.split(" ")
   var currRow = 0
   var currCol = 0
+  var k = 0
 
   $category.html(category)
 
@@ -116,11 +117,21 @@ function placeTiles() {
       currCol = 0 //go to first tile of that row
     }
     for(var j=0; j< currWord.length; j++) {
-      $($tiles[currRow][currCol]).addClass('blank-tile')//.html(currWord[j])
+      flipTiles(currRow, currCol, k)
+      console.log("blah", currRow, currCol)
       clueTablePos.push([currRow, currCol])
       currCol++
+      k++
     }
   }
+}
+
+function flipTiles (passedCurrRow, passedCurrCol,tileNum) {
+  window.setTimeout(function () {
+    console.log(passedCurrRow, passedCurrCol)
+    $($tiles[passedCurrRow][passedCurrCol]).delay(1000).addClass('blank-tile')
+  }, tileNum*150)
+
 }
 
 function choose() {
@@ -290,6 +301,7 @@ function updateBoard(letter) {
   for (var i=0;i<posArr.length; i++) {
     tileRow = clueTablePos[posArr[i]][0]
     tileCol = clueTablePos[posArr[i]][1]
+    console.log(i*100)
     $($tiles[tileRow][tileCol]).addClass("highlight").html(clueNoSpaces[posArr[i]]).click(function(e) { //give tiles ability to flip
         $(e.currentTarget).removeClass('highlight').off()
       })
