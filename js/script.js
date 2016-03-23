@@ -1,5 +1,7 @@
+var gameScore = [0,0]
 var roundScore = [0,0]
 var currPlayer = 0
+var round = 1
 
 var clue = "hello my name is bob"
 var category = "phrase"
@@ -65,7 +67,7 @@ $wheel.getValue = function () {
 /* --------------------------------------------------------------- */
 
 $startButton.on("click", function (e) {
-  showMessage("Let's play!", true)
+  showMessage("Let's play!", true) // shows message and displays continue button
   $startButton.hide().off()
   placeTiles()
 })
@@ -129,7 +131,6 @@ function spin () {
 
   var spinValue = $wheel.getValue()
 
-  console.log("currPlayer =", currPlayer, "spinValue =", spinValue)
 
   if(spinValue === "Bankrupt") {
     showMessage(spinValue +  "! Womp womp!", true)
@@ -141,7 +142,7 @@ function spin () {
     nextPlayer()
   } else {
     var returnDown = false
-    $guessInput.show().keydown(function (event){
+    $guessInput.show().focus().keydown(function (event){
       if(event.which === 13 && returnDown === false) {
         returnDown = true
         guess($(this).val(), spinValue)
@@ -158,7 +159,6 @@ function spin () {
 
 function buyVowel () {
   //check if you can even buy a vowel
-  console.log("blah", roundScore[currPlayer])
   if(roundScore[currPlayer] < 250) {
     showMessage("You need at least 250 for a vowel.", true)
     $guessInput.hide().off()
@@ -167,7 +167,7 @@ function buyVowel () {
     disableChoices()
     showMessage("Alright, vowels are 250 each.", false)
     var returnDown = false
-      $guessInput.show().keydown(function (event){
+      $guessInput.show().focus().keydown(function (event){
         if(event.which === 13 && returnDown === false) {
           returnDown = true
           guessVowel($(this).val(), spinValue)
@@ -182,7 +182,21 @@ function buyVowel () {
 }
 
 function solve () {
-  console.log("solve!")
+  disableChoices()
+  showMessage("Go ahead and solve.")
+  var returnDown = false
+  $guessInput.show().focus().attr('maxlength', 30).keydown(function (event){
+    if(event.which === 13 && returnDown === false) {
+      returnDown = true
+      // guessVowel($(this).val(), spinValue)
+      checkSolve($(this).val())
+      $(this).val("").attr('maxlength', 1)
+    }
+  }).keyup(function(event) {
+    if(event.which === 13 && returnDown === true){
+      returnDown = false
+    }
+  })
 }
 
 
@@ -237,7 +251,6 @@ function guessVowel (letter, spinValue) {
   //check the letter
   var result = checkGuess(letter)
   var clueNoSpaces = clue.replace(/\s/ig, "")
-  console.log(result)
   if(result !== "vowel") {
     showMessage("That's not a vowel.", false)
   } else {
@@ -294,6 +307,49 @@ function checkGuess(letter) { //return "vowel", "correct", "already guessed", "w
   } else {
     return "correct"
   }
+}
+
+function checkSolve(guess) {
+  var clueNoSpaces = clue.replace(/\s/ig, "")
+  var guessNoSpaces = guess.replace(/\s/ig, "").toLowerCase()
+  if (clueNoSpaces === guessNoSpaces) {
+    for (var j=0; j<guessNoSpaces.length; j++) {
+
+      var letter = guessNoSpaces[j]
+      var pos = clueNoSpaces.indexOf(letter)
+      var posArr = []
+      var count = 0
+
+      while (pos !== -1) {
+          posArr.push(pos)
+          pos = clueNoSpaces.indexOf(letter, pos+1)
+          count++
+      }
+
+      //place the letters one at a time.
+      for (var i=0;i<posArr.length; i++) {
+        tileRow = clueTablePos[posArr[i]][0]
+        tileCol = clueTablePos[posArr[i]][1]
+        $($tiles[tileRow][tileCol])
+          .html(clueNoSpaces[posArr[i]])
+          .click(function(e) { //give tiles ability to flip
+            $(e.currentTarget).off()
+          })
+      }
+    }
+    //change roundScore
+    showMessage("Congratulations! You banked " + roundScore[currPlayer] + " that round! Here are the scores.", true)
+    gameScore[currPlayer] += roundScore[currPlayer]
+    roundScore = [0,0]
+    for (var i=0; i<gameScore.length; i++) {
+      pScore.el[i].html(gameScore[i])
+    }
+  } else {
+    nextPlayer()
+    showMessage("Not quite, sorry. You're up Player "+ (currPlayer+1), true)
+  }
+
+  $guessInput.hide().off()
 }
 
 function nextPlayer() {
