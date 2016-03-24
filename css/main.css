@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  background-color:#F0EFEB;
+
 }
 
 #board {
@@ -8,8 +10,13 @@ body {
   width: 760px;
 }
 
-.tile {
-  border: 1px solid red;
+table {
+  /*border-collapse: collapse;*/
+}
+
+.tile, td {
+  background-color:#99CCFF;
+  /*border: 1px solid #CEC5AA;*/
   height: 70px;
   width: 60px;
   text-align: center;
@@ -17,14 +24,19 @@ body {
   transform:rotateY(0deg);
 }
 
+.hidden-tile {
+  border:0px;
+  opacity: 0;
+}
+
 .blank-tile {
-  background-color: grey;
+  background-color: #01A1FF;
   transform:rotateY(360deg);
 }
 
 .highlight {
-  background-color: red;
-  color: red;
+  background-color: #FF4133;
+  color: #FF4133;
   transform:rotateY(180deg);
 }
 
@@ -41,6 +53,7 @@ body {
   height: 80px;
   width: 600px;
   margin-top: 20px;
+  float: right;
 }
 
 #players {
@@ -64,11 +77,37 @@ body {
   width: 200px;
   border: 1px solid red;
   border-radius: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 #spin, #solve, #buy-vowel, #guess-input {
   display: none;
+}
+
+#start {
+  -moz-box-shadow: 2px 2px 0px 1px #498a37;
+  -webkit-box-shadow: 2px 2px 0px 1px #498a37;
+  box-shadow: 2px 2px 0px 1px #498a37;
+  background-color:#44c767;
+  -moz-border-radius:100%;
+  -webkit-border-radius:100%;
+  border-radius:100%;
+  border:1px solid #18ab29;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:10px;
+  padding:0px;
+  text-decoration:none;
+  width:40px;
+  height:40px;
+}
+.myButton:hover {
+  background-color:#5cbf2a;
+}
+.myButton:active {
+  position:relative;
+  top:1px;
 }

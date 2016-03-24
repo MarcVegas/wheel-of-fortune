@@ -16,13 +16,11 @@ clueBank =[
 {category:'food and drink' , clue:'long grain rice'},
 {category:'food and drink' , clue:'pudding cup'},
 {category:'food and drink' , clue:'rice and beans'},
-{category:'around the house' , clue:'shampoo and conditioner'},
 {category:'food and drink' , clue:'shrimp taco'},
 {category:'food and drink' , clue:'taco salad'},
 {category:'fictional characters' , clue:'wile e coyote'},
 {category:'around the house' , clue:'winter coat'},
-{category:'food and drink' , clue:'pizza burger'},
-{category:'food and drink' , clue:'strawberry cheesecake'}
+{category:'food and drink' , clue:'pizza burger'}
 ]
 
 clueBank.getRandClue = function () {
