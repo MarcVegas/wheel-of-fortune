@@ -70,7 +70,7 @@ table {
 
 #instructions, #game-options {
   font-size: 20px;
-  height: 80px;
+  height: auto;
   max-width: 400px;
   margin-top: 20px;
   margin: 10px auto;
