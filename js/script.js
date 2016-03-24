@@ -457,5 +457,5 @@ function updateScore (points, numGuessed, bankrupt) {
 }
 
 function test() {
-
+  $("#test").toggle().delay(1000).fadeOut("slow")
 }
