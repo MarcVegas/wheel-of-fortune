@@ -118,7 +118,7 @@ function emptyBoard() {
   }
 }
 
-function placeTiles() {
+function placeTiles(solved) {
   var clueArr = clue.split(" ")
   var currRow = 0
   var currCol = 0
@@ -138,7 +138,7 @@ function placeTiles() {
       currCol = 0 //go to first tile of that row
     }
     for(var j=0; j< currWord.length; j++) {
-      flipTiles(currRow, currCol, k)
+      flipTiles(currRow, currCol, k, solved, currWord[j])
       clueTablePos.push([currRow, currCol])
       currCol++
       k++
@@ -146,9 +146,12 @@ function placeTiles() {
   }
 }
 
-function flipTiles (passedCurrRow, passedCurrCol,tileNum) {
+function flipTiles (passedCurrRow, passedCurrCol,tileNum, solvedBool, currLetter) {
   window.setTimeout(function () {
     $($tiles[passedCurrRow][passedCurrCol]).delay(1000).addClass('blank-tile')
+    if(solvedBool) {
+      $($tiles[passedCurrRow][passedCurrCol]).html(currLetter)
+    }
   }, tileNum*150)
 
 }
@@ -372,16 +375,18 @@ function checkSolve(guess) {
           count++
       }
 
+      console.log('was about to place the letters on the board')
+      window.setTimeout(function () {placeTiles(true)}, 500)
       //place that letter on the board
-      for (var i=0;i<posArr.length; i++) {
-        tileRow = clueTablePos[posArr[i]][0]
-        tileCol = clueTablePos[posArr[i]][1]
-        $($tiles[tileRow][tileCol])
-          .html(clueNoSpaces[posArr[i]])
-          .click(function(e) { //give tiles ability to flip
-            $(e.currentTarget).off()
-          })
-      }
+      // for (var i=0;i<posArr.length; i++) {
+      //   tileRow = clueTablePos[posArr[i]][0]
+      //   tileCol = clueTablePos[posArr[i]][1]
+      //   $($tiles[tileRow][tileCol])
+      //     .html(clueNoSpaces[posArr[i]])
+      //     .click(function(e) { //give tiles ability to flip
+      //       $(e.currentTarget).off()
+      //     })
+      // }
     }
 
     //go to next round.
@@ -428,7 +433,6 @@ function nextRound() {
     showStartButton()
   } else {
     round++
-    console.log("next round, round = ", round)
     //show message and
     showMessage("Congratulations! You banked " + roundScore[currPlayer] + " that round! Here are the scores.", false,true)
   }
