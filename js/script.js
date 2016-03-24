@@ -3,8 +3,9 @@ var roundScore = [0,0]
 var currPlayer = 0
 var round = 1
 
-var clue, category
-[category, clue] = clueBank.getRandClue()
+var arr = clueBank.getRandClue()
+var clue = arr[1]
+var category = arr[0]
 console.log(category, ",",clue)
 var clueTablePos = []
 var guessedLetters = ""
@@ -67,12 +68,16 @@ $wheel.getValue = function () {
 
 /* --------------------------------------------------------------- */
 
-$startButton.on("click", function (e) {
-  placeTiles()
-  showMessage("Let's play!", true) // shows message and displays continue button
-  $startButton.hide().off()
-  $("table").fadeIn('slow')
-})
+showStartButton()
+function showStartButton () {
+  $startButton.show().on("click", function (e) {
+    emptyBoard()
+    placeTiles()
+    showMessage("Let's play!", true) // shows message and displays continue button
+    $startButton.hide().off()
+    $("table").fadeIn('slow')
+  })
+}
 
 /* --------------------------------------------------------------- */
 function showMessage(msg, showContinue, nextRound) {
@@ -87,7 +92,15 @@ function showMessage(msg, showContinue, nextRound) {
     $instructionBox.append($("<button id=continue>").click(function () {
       $(this).hide()
       emptyBoard()
-      // placeTiles()
+      var arr = clueBank.getRandClue()
+      console.log(arr)
+      clue = arr[1]
+      category = arr[0]
+      placeTiles()
+      // reset scores display for round
+      for (var i=0; i<gameScore.length; i++) {
+        pScore.el[i].html(0)
+      }
       showMessage("Let's play the round " + round,true)
     }).html(">"))
   }
@@ -104,6 +117,7 @@ function placeTiles() {
   var currRow = 0
   var currCol = 0
   var k = 0
+  clueTablePos = []
 
   $category.html(category)
 
@@ -119,7 +133,6 @@ function placeTiles() {
     }
     for(var j=0; j< currWord.length; j++) {
       flipTiles(currRow, currCol, k)
-      console.log("blah", currRow, currCol)
       clueTablePos.push([currRow, currCol])
       currCol++
       k++
@@ -129,7 +142,6 @@ function placeTiles() {
 
 function flipTiles (passedCurrRow, passedCurrCol,tileNum) {
   window.setTimeout(function () {
-    console.log(passedCurrRow, passedCurrCol)
     $($tiles[passedCurrRow][passedCurrCol]).delay(1000).addClass('blank-tile')
   }, tileNum*150)
 
@@ -210,7 +222,7 @@ function buyVowel () {
 
 function solve () {
   disableChoices()
-  showMessage("Go ahead and solve.")
+  showMessage("Go ahead and solve, Player " + (currPlayer+1))
   var returnDown = false
   $guessInput.show().focus().attr('maxlength', 30).keydown(function (event){
     if(event.which === 13 && returnDown === false) {
@@ -302,7 +314,6 @@ function updateBoard(letter) {
   for (var i=0;i<posArr.length; i++) {
     tileRow = clueTablePos[posArr[i]][0]
     tileCol = clueTablePos[posArr[i]][1]
-    console.log(i*100)
     $($tiles[tileRow][tileCol]).addClass("highlight").html(clueNoSpaces[posArr[i]]).click(function(e) { //give tiles ability to flip
         $(e.currentTarget).removeClass('highlight').off()
       })
@@ -338,6 +349,8 @@ function checkSolve(guess) {
   var clueNoSpaces = clue.replace(/\s/ig, "")
   var guessNoSpaces = guess.replace(/\s/ig, "").toLowerCase()
   if (clueNoSpaces === guessNoSpaces) {
+    //empty the board
+    emptyBoard()
     // loop through every letter in the clue and place it on the board
     for (var j=0; j<guessNoSpaces.length; j++) {
 
@@ -364,15 +377,7 @@ function checkSolve(guess) {
           })
       }
     }
-    showMessage("Congratulations! You banked " + roundScore[currPlayer] + " that round! Here are the scores.", false,true)
-    //bank round points of the current player only
-    gameScore[currPlayer] += roundScore[currPlayer]
-    //reset round score
-    roundScore = [0,0]
-    //display game scores
-    for (var i=0; i<gameScore.length; i++) {
-      pScore.el[i].html(gameScore[i])
-    }
+
     //go to next round.
     nextRound()
 
@@ -394,13 +399,34 @@ function nextPlayer() {
 }
 
 function nextRound() {
-  if (round > 3) {
-    console.log("finished game")
-    round = 0
-    console.log("now round =", round)
+  if (round > 2) {
+    console.log("finished game", gameScore)
+    round = 1
+    //check who won.
+    if (gameScore[0] == gameScore [1]) {
+      showMessage("It's a tie, womp womp. \rPress start to play a new game.")
+    } else if(gameScore[0] > gameScore [1]) {
+      showMessage("Congrats Player 1, you won with " + gameScore [0] +" points! \rPress start to play a new game.")
+    } else {
+      showMessage("Congrats Player 2, you won with " + gameScore [1] +" points! \rPress start to play a new game.")
+    }
+    roundScore = [0,0]
+    gameScore = [0,0]
+    showStartButton()
   } else {
     round++
-    console.log("round = ", round)
+    console.log("next round, round = ", round)
+    //show message and
+    showMessage("Congratulations! You banked " + roundScore[currPlayer] + " that round! Here are the scores.", false,true)
+    //bank round points of the current player only
+    gameScore[currPlayer] += roundScore[currPlayer]
+    //reset round score
+    roundScore = [0,0]
+    guessedLetters = ""
+    //display game scores so far
+    for (var i=0; i<gameScore.length; i++) {
+      pScore.el[i].html(gameScore[i])
+    }
   }
 }
 

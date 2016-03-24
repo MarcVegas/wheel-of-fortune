@@ -63,9 +63,11 @@ table {
   margin: 10px auto;
 }
 
-#instructions {
+#instructions, #game-options {
   height: 80px;
+  max-width: 400px;
   margin-top: 20px;
+  margin: 10px auto;
 }
 
 .player-box{
@@ -120,4 +122,8 @@ table {
 .myButton:active {
   position:relative;
   top:1px;
+}
+
+button {
+  cursor: pointer;
 }
