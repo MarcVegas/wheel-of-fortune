@@ -38,6 +38,7 @@ table {
   text-align: center;
   transition: transform 1s;
   transform:rotateY(0deg);
+  font-size: 40px;
 }
 
 .hidden-tile {

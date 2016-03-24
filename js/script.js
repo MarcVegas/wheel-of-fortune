@@ -78,6 +78,10 @@ function showStartButton () {
     showMessage("Let's play!", true) // shows message and displays continue button
     $startButton.hide().off()
     $("table").fadeIn('slow')
+    for (var i=0; i<gameScore.length; i++) {
+      pScore.roundEl[i].html(0)
+      pScore.gameEl[i].html(gameScore[i])
+    }
   })
 }
 
@@ -401,6 +405,14 @@ function nextPlayer() {
 }
 
 function nextRound() {
+  //bank round points of the current player only
+  gameScore[currPlayer] += roundScore[currPlayer]
+   //display game scores so far
+  for (var i=0; i<gameScore.length; i++) {
+    pScore.roundEl[i].html(0)
+    pScore.gameEl[i].html(gameScore[i])
+  }
+
   if (round > 2) {
     console.log("finished game", gameScore)
     round = 1
@@ -412,7 +424,6 @@ function nextRound() {
     } else {
       showMessage("Congrats Player 2, you won with " + gameScore [1] +" points! \rPress start to play a new game.")
     }
-    roundScore = [0,0]
     gameScore = [0,0]
     showStartButton()
   } else {
@@ -420,17 +431,13 @@ function nextRound() {
     console.log("next round, round = ", round)
     //show message and
     showMessage("Congratulations! You banked " + roundScore[currPlayer] + " that round! Here are the scores.", false,true)
-    //bank round points of the current player only
-    gameScore[currPlayer] += roundScore[currPlayer]
-    //reset round score
-    roundScore = [0,0]
-    guessedLetters = ""
-    //display game scores so far
-    for (var i=0; i<gameScore.length; i++) {
-      pScore.roundEl[i].html(roundScore[i])
-      pScore.gameEl[i].html(gameScore[i])
-    }
   }
+
+  //reset guessed letters
+  guessedLetters = ""
+  //reset round score
+  roundScore = [0,0]
+
 }
 
 function updateScore (points, numGuessed, bankrupt) {
