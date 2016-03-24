@@ -74,14 +74,13 @@ table {
   display: inline-block;
 }
 
-#p1-name, #p2-name {
+.player-box div {
   width: 200px;
   height:40px;
 }
 
-#p1-score, #p2-score {
-  height: 40px;
-  width: 200px;
+#p1-bank, #p2-bank {
+  color:grey;
 }
 
 #wheel {

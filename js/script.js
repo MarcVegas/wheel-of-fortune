@@ -18,10 +18,12 @@ var $category = $("#category")
 
 var $instructionBox = $("#instructions")
 
-var $p1Score = $("#p1-score")
-var $p2Score = $("#p2-score")
-var pScore = {  score: [0,0],
-                el: [$p1Score, $p2Score]}
+var $p1roundScore = $("#p1-score")
+var $p2roundScore = $("#p2-score")
+var $p1gameScore = $("#p1-bank")
+var $p2gameScore = $("#p2-bank")
+var pScore = {  roundEl: [$p1roundScore, $p2roundScore],
+                gameEl: [$p1gameScore, $p2gameScore]}
 
 
 var $startButton = $("#start")
@@ -99,7 +101,7 @@ function showMessage(msg, showContinue, nextRound) {
       placeTiles()
       // reset scores display for round
       for (var i=0; i<gameScore.length; i++) {
-        pScore.el[i].html(0)
+        pScore.roundEl[i].html(0)
       }
       showMessage("Let's play the round " + round,true)
     }).html(">"))
@@ -425,7 +427,8 @@ function nextRound() {
     guessedLetters = ""
     //display game scores so far
     for (var i=0; i<gameScore.length; i++) {
-      pScore.el[i].html(gameScore[i])
+      pScore.roundEl[i].html(roundScore[i])
+      pScore.gameEl[i].html(gameScore[i])
     }
   }
 }
@@ -436,5 +439,5 @@ function updateScore (points, numGuessed, bankrupt) {
   } else {
     roundScore[currPlayer] += points*numGuessed
   }
-  pScore.el[currPlayer].html(roundScore[currPlayer])
+  pScore.roundEl[currPlayer].html(roundScore[currPlayer])
 }
