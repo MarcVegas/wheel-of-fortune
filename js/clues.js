@@ -34,4 +34,7 @@ clueBank.getRandClue = function () {
 }
 
 
-var gifUrls = []
+var gifUrls = [ "https://media2.giphy.com/media/yhfTY8JL1wIAE/200.gif",
+                "https://media.giphy.com/media/TlK63ED1ShqW53CCUNO/200.gif",
+                "https://media1.giphy.com/media/l0NwNQ5nfmFOPvv5m/200.gif",
+                ]
