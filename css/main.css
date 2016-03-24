@@ -10,13 +10,11 @@ body {
 
 }
 .column1 {
-  border:1px solid red;
   flex-grow: 1
 }
 
 .column2 {
   flex-grow: 1;
-  border:1px solid red;
 }
 
 h1 {
@@ -60,14 +58,12 @@ table {
 
 
 #category {
-  border: 1px solid red;
   height: 30px;
   width: 600px;
   margin: 10px auto;
 }
 
 #instructions {
-  border: 1px solid red;
   height: 80px;
   margin-top: 20px;
 }
@@ -77,13 +73,11 @@ table {
 }
 
 #p1-name, #p2-name {
-  border: 1px solid red;
   width: 200px;
   height:40px;
 }
 
 #p1-score, #p2-score {
-  border: 1px solid red;
   height: 40px;
   width: 200px;
 }
@@ -92,7 +86,6 @@ table {
   display:none;
   height: 200px;
   width: 200px;
-  border: 1px solid red;
   border-radius: 100%;
   justify-content: center;
   align-items: center;
