@@ -458,6 +458,5 @@ function updateScore (points, numGuessed, bankrupt) {
 }
 
 function testFunction() {
-  var gifURL = "https://media.giphy.com/media/aff2VjMx4s7O8/giphy.gif"
-  $("#test").css('background-image', 'url('+ gifURL +')').toggle().delay(1000).fadeOut("slow")
+  $("#test").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
 }
