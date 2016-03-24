@@ -27,5 +27,10 @@ clueBank.getRandClue = function () {
   var max = this.length
   var min = 0
   randI = Math.floor(Math.random() * (max - min)) + min
-  return [this[randI].category, this[randI].clue]
+  var category = this[randI].category
+  var clue = this[randI].clue
+  console.log("before",clueBank.length)
+  clueBank.splice(randI,1)
+  console.log(clueBank.length)
+  return [category, clue]
 }
