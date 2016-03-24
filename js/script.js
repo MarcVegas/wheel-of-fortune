@@ -177,6 +177,7 @@ function disableChoices() {
 }
 
 function spin () {
+  testFunction()
   buyAVowel = false
   disableChoices()
 
@@ -211,7 +212,7 @@ function spin () {
 function buyVowel () {
   //check if you can even buy a vowel
   if(roundScore[currPlayer] < 250) {
-    showMessage("You need at least 250 for a vowel.", true)
+    showMessage("You need at least 250 for a vowel.", false)
     $guessInput.hide().off()
   } else {
     spinValue = -250
@@ -261,7 +262,7 @@ function guess (letter, spinValue) {
   } else if (result === "already-guessed") {
     showMessage("Whoops, '" + letter + "' was already guessed. Sorry you lost your turn.", true)
     nextPlayer()
-    $guessInput.off()
+    $guessInput.hide().off()
   } else if (result === "wrong") {
     guessedLetters += letter
     nextPlayer()
@@ -274,8 +275,8 @@ function guess (letter, spinValue) {
 
       updateScore(spinValue, letterCount)
 
-      $guessInput.hide().off()
       showMessage("Alright! Go ahead and flip them!", true)
+      $guessInput.hide().off()
   }
 }
 
@@ -302,8 +303,8 @@ function guessVowel (letter, spinValue) {
 
         letterCount = updateBoard(letter)
         updateScore(spinValue, letterCount)
-        $guessInput.hide().off()
         showMessage("Flip over those vowels!", true)
+        $guessInput.hide().off()
     }
   }
 }
@@ -456,6 +457,7 @@ function updateScore (points, numGuessed, bankrupt) {
   pScore.roundEl[currPlayer].html(roundScore[currPlayer])
 }
 
-function test() {
-  $("#test").toggle().delay(1000).fadeOut("slow")
+function testFunction() {
+  var gifURL = "https://media.giphy.com/media/aff2VjMx4s7O8/giphy.gif"
+  $("#test").css('background-image', 'url('+ gifURL +')').toggle().delay(1000).fadeOut("slow")
 }

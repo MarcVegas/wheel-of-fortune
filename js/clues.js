@@ -32,3 +32,6 @@ clueBank.getRandClue = function () {
   clueBank.splice(randI,1)
   return [category, clue]
 }
+
+
+var gifUrls = []

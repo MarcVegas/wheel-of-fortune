@@ -215,6 +215,8 @@ button:active {
 }
 
 #test {
+    background-image: url(http://big.assets.huffingtonpost.com/spinning_the_wheel_by_leafman813-d6uhbh6.gif);
+    background-size: cover;
     display: none;
     position: absolute;
     width: 100%;
