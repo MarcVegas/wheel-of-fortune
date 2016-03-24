@@ -71,6 +71,7 @@ $startButton.on("click", function (e) {
   placeTiles()
   showMessage("Let's play!", true) // shows message and displays continue button
   $startButton.hide().off()
+  $("table").fadeIn('slow')
 })
 
 /* --------------------------------------------------------------- */
