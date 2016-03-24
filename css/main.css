@@ -7,8 +7,8 @@ body {
 #content {
   display: flex;
   justify-content: center;
-
 }
+
 .column1 {
   flex-grow: 1
 }
@@ -27,7 +27,6 @@ h1 {
 
 table {
   margin:0px auto;
-  /*border-collapse: collapse;*/
 }
 
 .tile, td {
@@ -55,6 +54,7 @@ table {
   background-color: #FF4133;
   color: #FF4133;
   transform:rotateY(180deg);
+  cursor: pointer;
 }
 
 
@@ -66,6 +66,7 @@ table {
 }
 
 #instructions, #game-options {
+  font-size: 20px;
   height: 80px;
   max-width: 400px;
   margin-top: 20px;
@@ -74,6 +75,7 @@ table {
 
 .player-box{
   display: inline-block;
+  font-size: 20px;
 }
 
 .player-box div {
@@ -86,12 +88,39 @@ table {
 }
 
 #wheel {
-  display:none;
-  height: 200px;
-  width: 200px;
+  position:fixed;
+  width:400px;
+  height:400px;
   border-radius: 100%;
-  justify-content: center;
-  align-items: center;
+  top:50%;
+  left:50%;
+  margin-left:-200px;
+  margin-top: -200px;
+  background-color: white;
+  opacity:.8;
+}
+
+#guess-input {
+    font-size: 20px;
+    width: 325px;
+    height: 40px;
+    text-align: center;
+    background-color: #F0EFEB;
+    border-bottom: 1px solid black;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+#guess-input:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  border:0px;
+  border-radius: 3px;
+  font-size: 20px;
 }
 
 #spin, #solve, #buy-vowel, #guess-input {
@@ -99,32 +128,41 @@ table {
 }
 
 #start {
-  -moz-box-shadow: 2px 2px 0px 1px #498a37;
-  -webkit-box-shadow: 2px 2px 0px 1px #498a37;
-  box-shadow: 2px 2px 0px 1px #498a37;
-  background-color:#44c767;
-  -moz-border-radius:100%;
-  -webkit-border-radius:100%;
-  border-radius:100%;
-  border:1px solid #18ab29;
-  display:inline-block;
-  cursor:pointer;
-  color:#ffffff;
-  font-family:Arial;
-  font-size:10px;
-  padding:0px;
-  text-decoration:none;
-  width:40px;
-  height:40px;
-}
-.myButton:hover {
-  background-color:#5cbf2a;
-}
-.myButton:active {
-  position:relative;
-  top:1px;
+  background-color:#E74C3C;
 }
 
-button {
-  cursor: pointer;
+#start:hover {
+  background-color:#C0392B;
+}
+
+#continue {
+  border-radius: 100%;
+  width: 30px;
+  height:30px;
+}
+
+#spin, #solve, #buy-vowel {
+  margin:0px 5px;
+
+}
+
+
+
+
+
+@media (max-width: 760px) {
+  #content{
+    flex-wrap: wrap;
+  }
+
+  .tile, td {
+    height: 40px;
+    min-width: 34px;
+    font-size: 25px;
+  }
+
+  #category {
+    width: 300px;
+    height:20px;
+  }
 }

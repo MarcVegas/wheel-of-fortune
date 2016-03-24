@@ -29,8 +29,6 @@ clueBank.getRandClue = function () {
   randI = Math.floor(Math.random() * (max - min)) + min
   var category = this[randI].category
   var clue = this[randI].clue
-  console.log("before",clueBank.length)
   clueBank.splice(randI,1)
-  console.log(clueBank.length)
   return [category, clue]
 }
