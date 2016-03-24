@@ -74,10 +74,12 @@ $wheel.getValue = function () {
 showStartButton()
 function showStartButton () {
   $startButton.show().on("click", function (e) {
+    $startButton.fadeOut("fast").off()
+
     emptyBoard()
     placeTiles()
     showMessage("Let's play!", true) // shows message and displays continue button
-    $startButton.hide().off()
+
     $("table").fadeIn('slow')
     for (var i=0; i<gameScore.length; i++) {
       pScore.roundEl[i].html(0)
@@ -259,7 +261,7 @@ function guess (letter, spinValue) {
   } else if (result === "already-guessed") {
     showMessage("Whoops, '" + letter + "' was already guessed. Sorry you lost your turn.", true)
     nextPlayer()
-    $guessInput.hide().off()
+    $guessInput.off()
   } else if (result === "wrong") {
     guessedLetters += letter
     nextPlayer()
@@ -452,4 +454,8 @@ function updateScore (points, numGuessed, bankrupt) {
     roundScore[currPlayer] += points*numGuessed
   }
   pScore.roundEl[currPlayer].html(roundScore[currPlayer])
+}
+
+function test() {
+
 }

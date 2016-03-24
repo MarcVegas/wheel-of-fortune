@@ -62,7 +62,9 @@ table {
   height: 30px;
   width: 600px;
   margin: 10px auto;
-  background-color:#99CCFF;
+  background-color:#9B59B6;
+  font-size: 20px;
+  color:white;
 }
 
 #instructions, #game-options {
@@ -121,6 +123,8 @@ button {
   border:0px;
   border-radius: 3px;
   font-size: 20px;
+  transition: background-color .5s;
+  color:white;
 }
 
 #spin, #solve, #buy-vowel, #guess-input {
@@ -139,13 +143,40 @@ button {
   border-radius: 100%;
   width: 30px;
   height:30px;
+  background-color: #2ECC71;
+}
+
+#continue:hover {
+  background-color: #27AE60;
 }
 
 #spin, #solve, #buy-vowel {
   margin:0px 5px;
-
 }
 
+#spin {
+  background-color: #3498DB;
+}
+
+#spin:hover {
+  background-color: #2980B9;
+}
+
+#buy-vowel {
+  background-color: #E67E22;
+}
+
+#buy-vowel:hover {
+  background-color: #D35400;
+}
+
+#solve {
+  background-color: #34495E;
+}
+
+#solve:hover {
+  background-color: #2C3E50;
+}
 
 
 
