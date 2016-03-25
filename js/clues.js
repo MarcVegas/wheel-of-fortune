@@ -1,26 +1,12 @@
 clueBank =[
-{category:'around the house' , clue:'address book'},
-{category:'food and drink' , clue:'american cheddar cheese'},
-{category:'food and drink' , clue:'banana split'},
-{category:'fictional characters' , clue:'big bird'},
-{category:'around the house' , clue:'bookends'},
-{category:'fictional characters' , clue:'chicken little'},
-{category:'food and drink' , clue:'chicken salad'},
-{category:'around the house' , clue:'desk chair'},
-{category:'food and drink' , clue:'eclair'},
-{category:'food and drink' , clue:'gala apples'},
-{category:'food and drink' , clue:'gala apples'},
-{category:'fictional characters' , clue:'harry potter'},
-{category:'fictional characters' , clue:'homer simpson'},
-{category:'fictional characters' , clue:'jabba the hut'},
-{category:'food and drink' , clue:'long grain rice'},
-{category:'food and drink' , clue:'pudding cup'},
-{category:'food and drink' , clue:'rice and beans'},
-{category:'food and drink' , clue:'shrimp taco'},
-{category:'food and drink' , clue:'taco salad'},
-{category:'fictional characters' , clue:'wile e coyote'},
-{category:'around the house' , clue:'winter coat'},
-{category:'food and drink' , clue:'pizza burger'}
+{category:'event' , clue:'dinner and a movie'},
+{category:'movie' , clue:'titanic'},
+{category:'designer brand ' , clue:'alexander mc queen '},
+{category:'mexican food' , clue:'arroz con pollo'},
+{category:'favorite ga wdi person ' , clue:'joseph '},
+{category:'e coli factory' , clue:'chipotle'},
+{category:'do this in the morning' , clue:'brush your teeth'},
+{category:'in the kitchen' , clue:'microwave oven'}
 ]
 
 clueBank.getRandClue = function () {

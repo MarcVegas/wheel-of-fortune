@@ -455,5 +455,5 @@ function updateScore (points, numGuessed, bankrupt) {
 }
 
 function showSpinGif() {
-  $("#test").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
+  $("#gif").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
 }
