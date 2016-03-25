@@ -65,7 +65,7 @@ table {
   margin: 10px auto;
   background-color:#99CCFF;
   font-size: 20px;
-  color:white;
+  color:black;
 }
 
 #instructions, #game-options {
@@ -195,6 +195,8 @@ button:active {
 @media (max-width: 760px) {
   #category {
     font-size: 90%;
+    width: 300px;
+    height: 20px;
   }
 
   #content{
@@ -214,11 +216,6 @@ button:active {
   }
   .column1 {
     margin-bottom:10px;
-  }
-
-  #category {
-    width: 300px;
-    height:20px;
   }
 }
 
