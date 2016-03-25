@@ -1,3 +1,0 @@
-# wheel-of-fortune
-
-test
