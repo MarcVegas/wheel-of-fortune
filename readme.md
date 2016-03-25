@@ -3,7 +3,6 @@
 By: AJ Almaguer
 
 
-
 I made this version of Wheel of Fortune for my first project of General Assembly's Web Development Immersive program. I chose this project because it could be something that I would actually use with my friends and family. I used to be a summer camp counselor, so I enjoy facilitating group experiences.
 
 This is a two-player Wheel of Fortune game. Players have three rounds to "bank" as many points to win the game. In each round, you earn points by "spinning the wheel" and correctly guessing letters in the of the puzzle displayed on the board. But be careful of landing on *Bankrupt* or *Lose-a-Turn*! 
@@ -23,6 +22,7 @@ Just like the TV show, you have to keep track of the guessed letters yourself. I
 
 User stories can be found at: [Pivotal Tracker Board](https://www.pivotaltracker.com/n/projects/1558283)
 
+The game board is created using a table. The cells that hold the clue letters have the class `"tiles". The tiles are called into javascript using jquery and 
 
 
 
