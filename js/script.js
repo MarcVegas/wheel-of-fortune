@@ -19,6 +19,11 @@ var $category = $("#category")
 
 var $instructionBox = $("#instructions")
 
+
+var $p1Name = $("#p1-name")
+var $p2Name = $("#p2-name")
+var pNames = [$p1Name.val(), $p2Name.val()]
+
 var $p1roundScore = $("#p1-score")
 var $p2roundScore = $("#p2-score")
 var $p1gameScore = $("#p1-bank")
@@ -66,9 +71,6 @@ $wheel.getValue = function () {
   return this.values[Math.floor(Math.random() * (max - min)) + min]
 }
 
-
-
-
 /* --------------------------------------------------------------- */
 
 showStartButton()
@@ -113,6 +115,11 @@ function showMessage(msg, showContinue, nextRound) {
       showMessage("Let's play the round " + round,true)
     }).html(">"))
   }
+}
+
+function currPlayerName() {
+  pNames = [$p1Name.val(), $p2Name.val()]
+  return pNames[currPlayer]
 }
 
 function emptyBoard() {
@@ -161,7 +168,7 @@ function flipTiles (passedCurrRow, passedCurrCol,tileNum, solvedBool, currLetter
 
 function choose() {
   enableChoices()
-  showMessage("Ok Player " + (currPlayer+1) + ", what do you want to do?", false)
+  showMessage("Ok " + currPlayerName() + ", what do you want to do?", false)
 }
 
 function enableChoices() {
@@ -177,7 +184,7 @@ function disableChoices() {
 }
 
 function spin () {
-  testFunction()
+  showSpinGif()
   buyAVowel = false
   disableChoices()
 
@@ -189,8 +196,8 @@ function spin () {
     updateScore(0,0,true)
     nextPlayer()
 
-  } else if (spinValue === "Lose a Turn") {
-    showMessage(spinValue +  " Player " + (currPlayer+1) + ".", true)
+  } else if (spinValue === "Lose a Turn,") {
+    showMessage(spinValue +  " " + currPlayerName() + ".", true)
     nextPlayer()
   } else {
     var returnDown = false
@@ -205,7 +212,7 @@ function spin () {
         returnDown = false
       }
     })
-    showMessage(spinValue +  "! Player " + (currPlayer+1) + ", please guess a letter.", false)
+    showMessage(spinValue +  "! " + currPlayerName() + ", please guess a letter.", false)
   }
 }
 
@@ -235,7 +242,7 @@ function buyVowel () {
 
 function solve () {
   disableChoices()
-  showMessage("Go ahead and solve, Player " + (currPlayer+1))
+  showMessage("Go ahead and solve, " + currPlayerName())
   var returnDown = false
   $guessInput.show().focus().attr('maxlength', 30).keydown(function (event){
     if(event.which === 13 && returnDown === false) {
@@ -266,7 +273,7 @@ function guess (letter, spinValue) {
   } else if (result === "wrong") {
     guessedLetters += letter
     nextPlayer()
-    showMessage("No '" + letter + "'. Player " + (currPlayer+ 1) + ", you're up", true)
+    showMessage("No '" + letter + "'. " + currPlayerName() + ", you're up", true)
     $guessInput.hide().off()
   } else if (result === "correct") {
       guessedLetters += letter
@@ -296,7 +303,7 @@ function guessVowel (letter, spinValue) {
     } else if (clueNoSpaces.indexOf(letter) === -1) {
       guessedLetters += letter
       nextPlayer()
-      showMessage("No '" + letter + "'. Player " + (currPlayer+ 1) + ", you're up", true)
+      showMessage("No '" + letter + "'. " + currPlayerName() + ", you're up", true)
       $guessInput.hide().off()
     } else {
         guessedLetters += letter
@@ -399,7 +406,7 @@ function checkSolve(guess) {
 
   } else {
     nextPlayer()
-    showMessage("Not quite, sorry. You're up Player "+ (currPlayer+1), true)
+    showMessage("Not quite, sorry. You're up "+ currPlayerName(), true)
   }
 
   $guessInput.hide().off()
@@ -423,15 +430,16 @@ function nextRound() {
   }
 
   if (round > 2) {
+    pNames = [$p1Name.val(), $p2Name.val()]
     console.log("finished game", gameScore)
     round = 1
     //check who won.
     if (gameScore[0] == gameScore [1]) {
       showMessage("It's a tie, womp womp. \rPress start to play a new game.")
     } else if(gameScore[0] > gameScore [1]) {
-      showMessage("Congrats Player 1, you won with " + gameScore [0] +" points! \rPress start to play a new game.")
+      showMessage("Congrats "+ pNames[0] +", you won with " + gameScore [0] +" points! \rPress start to play a new game.")
     } else {
-      showMessage("Congrats Player 2, you won with " + gameScore [1] +" points! \rPress start to play a new game.")
+      showMessage("Congrats "+ pNames[1] +", you won with " + gameScore [1] +" points! \rPress start to play a new game.")
     }
     gameScore = [0,0]
     showStartButton()
@@ -457,6 +465,6 @@ function updateScore (points, numGuessed, bankrupt) {
   pScore.roundEl[currPlayer].html(roundScore[currPlayer])
 }
 
-function testFunction() {
-  $("#test").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
+function showSpinGif() {
+  $("#gif").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
 }
