@@ -66,9 +66,6 @@ $wheel.getValue = function () {
   return this.values[Math.floor(Math.random() * (max - min)) + min]
 }
 
-
-
-
 /* --------------------------------------------------------------- */
 
 showStartButton()
@@ -177,7 +174,7 @@ function disableChoices() {
 }
 
 function spin () {
-  testFunction()
+  showSpinGif()
   buyAVowel = false
   disableChoices()
 
@@ -457,6 +454,6 @@ function updateScore (points, numGuessed, bankrupt) {
   pScore.roundEl[currPlayer].html(roundScore[currPlayer])
 }
 
-function testFunction() {
+function showSpinGif() {
   $("#test").css('background-image', 'url('+ gifUrls.getUrl() +')').toggle().delay(1000).fadeOut("slow")
 }
