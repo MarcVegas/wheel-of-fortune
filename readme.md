@@ -22,9 +22,31 @@ Just like the TV show, you have to keep track of the guessed letters yourself. I
 
 User stories can be found at: [Pivotal Tracker Board](https://www.pivotaltracker.com/n/projects/1558283)
 
-The game board is created using a table. The cells that hold the clue letters have the class `"tiles". The tiles are called into javascript using jquery and 
+The game board is created using a table. The cells that hold the clue letters have the class `"tiles". The tiles are called into javascript using jquery and are placed into a 2D Array. The critical function is placeTiles(), which takes the clue, breaks up the string into an array, and places each word onto the board one at a time. If the word does not fit onto the row, it will be placed at the beginning of the next row.
 
 
+![board design](https://raw.githubusercontent.com/ajalmaguer/wheel-of-fortune/master/images/wheel-of-fortune.png)
+
+
+These are the flow charts I made to plan out the logic of the game. The three basic options you have when it's your turn is spin, buy vowel, and solve. Each button has it's own function to execute the logic of that choice.
+
+
+![spin logic](https://raw.githubusercontent.com/ajalmaguer/wheel-of-fortune/master/images/spin%20flow%20chart.png)
+
+
+![buy vowel logic](https://raw.githubusercontent.com/ajalmaguer/wheel-of-fortune/master/images/buy%20vowel%20flow%20chart.png)
+
+
+![solve logic](https://raw.githubusercontent.com/ajalmaguer/wheel-of-fortune/master/images/solve%20flow%20chart.png)
+
+
+The game checks the letters you guess. It knows whether you guessed a constonant, a vowel, a non-letter, or a letter that was already guessed. The game is not case sensitive.
+
+
+I mostly worked on the control logic of the game before adding css. Here's a gif of the project throughout the development process.
+
+
+![screenshots](https://raw.githubusercontent.com/ajalmaguer/wheel-of-fortune/master/images/design-over-time.gif)
 
 
 ##Get Started
