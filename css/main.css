@@ -145,6 +145,7 @@ button:active {
   display: none;
 }
 
+
 #start {
   background-color:#E74C3C;
 }
@@ -165,7 +166,7 @@ button:active {
 }
 
 #spin, #solve, #buy-vowel {
-  margin:0px 5px;
+  margin:5px 5px;
 }
 
 #spin {
