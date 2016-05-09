@@ -386,18 +386,7 @@ function checkSolve(guess) {
           count++
       }
 
-      console.log('was about to place the letters on the board')
       window.setTimeout(function () {placeTiles(true)}, 500)
-      //place that letter on the board
-      // for (var i=0;i<posArr.length; i++) {
-      //   tileRow = clueTablePos[posArr[i]][0]
-      //   tileCol = clueTablePos[posArr[i]][1]
-      //   $($tiles[tileRow][tileCol])
-      //     .html(clueNoSpaces[posArr[i]])
-      //     .click(function(e) { //give tiles ability to flip
-      //       $(e.currentTarget).off()
-      //     })
-      // }
     }
 
     //go to next round.
@@ -458,9 +447,10 @@ function nextRound() {
 
 function updateScore (points, numGuessed, bankrupt) {
   if(bankrupt) {
-    roundScore[currPlayer] =0
+    roundScore[currPlayer] = 0
   } else {
     roundScore[currPlayer] += points*numGuessed
+    console.log(roundScore)
   }
   pScore.roundEl[currPlayer].html(roundScore[currPlayer])
 }
