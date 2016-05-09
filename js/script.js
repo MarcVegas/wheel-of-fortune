@@ -196,7 +196,7 @@ function spin () {
     updateScore(0,0,true)
     nextPlayer()
 
-  } else if (spinValue === "Lose a Turn,") {
+  } else if (spinValue === "Lose a Turn") {
     showMessage(spinValue +  " " + currPlayerName() + ".", true)
     nextPlayer()
   } else {
