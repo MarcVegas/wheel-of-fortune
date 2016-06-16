@@ -9,6 +9,8 @@ This is a two-player Wheel of Fortune game. Players have three rounds to "bank" 
 
 Just like the TV show, you have to keep track of the guessed letters yourself. If the letter you guess isn't in the puzzle or has already been guessed, you lose your turn. A round ends when a player solves the puzzle, which allows them to "bank" their points for that round—the other player loses all points earned that round since they didn't solve.
 
+**Play it here:** [http://ajalmaguer.github.io/wheel-of-fortune/](http://ajalmaguer.github.io/wheel-of-fortune/)
+
 ##Technologies Used
 
 1. HTML
