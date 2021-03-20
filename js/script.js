@@ -200,18 +200,13 @@ function spin () {
     showMessage(spinValue +  " " + currPlayerName() + ".", true)
     nextPlayer()
   } else {
-    var returnDown = false
-    $guessInput.show().focus().keydown(function (event){
-      if(event.which === 13 && returnDown === false) {
-        returnDown = true
-        guess($(this).val(), spinValue)
-        $(this).val("")
-      }
-    }).keyup(function(event) {
-      if(event.which === 13 && returnDown === true){
-        returnDown = false
-      }
-    })
+    $guessInput
+      .show()
+      .focus()
+      .keydown((event) => {
+        guess(event.key, spinValue);
+        $guessInput.val('');
+      });
     showMessage(spinValue +  "! " + currPlayerName() + ", please guess a letter.", false)
   }
 }
