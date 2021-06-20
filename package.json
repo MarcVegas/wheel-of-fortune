@@ -1,0 +1,19 @@
+{
+  "name": "wheel-of-fortune",
+  "version": "1.0.0",
+  "description": "By: AJ Almaguer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcVegas/wheel-of-fortune.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajalmaguer/wheel-of-fortune/issues"
+  },
+  "homepage": "https://github.com/ajalmaguer/wheel-of-fortune#readme"
+}
